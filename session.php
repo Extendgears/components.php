@@ -1,6 +1,6 @@
 <?php
 
-// Start a session
+// start a session
 function useSession() {
 	session_start();
 }
@@ -10,7 +10,7 @@ function quitSession() {
 	setcookie(session_name(), "", time() - 42000, "/");
 }
 
-// Get a session variable
+// get a session variable
 //
 // @param string $varName name of the variable
 //
@@ -23,7 +23,7 @@ function getSessionVar($varName) {
 	}
 }
 
-// Set a session variable
+// set a session variable
 //
 // @param string $varName name of the variable
 // @param string $varVal value of the variable

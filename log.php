@@ -1,7 +1,6 @@
 <?php
 
-
-// Check whether user should be logged in automatically, if yes do so
+// check whether user should be logged in automatically, if yes do so
 function initLogSys() {
 	useSession();
 
@@ -22,7 +21,7 @@ function initLogSys() {
 	}
 }
 
-// Save keepLog-cookie and store the value in the database
+// save keepLog-cookie and store the value in the database
 function saveKeepLog() {
 	$keepLogKey = uniqid();
 	setCookie('keepLog', $keepLogKey, time() + 3600, '/', 'localhost', false, true);
@@ -39,7 +38,6 @@ function getLogState() {
 		return false;
 	}
 }
-
 
 // log in a user
 //

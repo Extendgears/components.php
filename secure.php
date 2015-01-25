@@ -1,6 +1,6 @@
 <?php
 
-// Validate a mailaddress
+// Validate an email address
 //
 // @param string $mail
 //
@@ -13,7 +13,7 @@ function validMail($mail) {
 	}
 }
 
-// Validate a path
+// validate a path
 //
 // @param string $path
 //
@@ -26,7 +26,7 @@ function validPath($path) {
 	}
 }
 
-// Secures an array with htmlspecialchars()
+// secures an array with htmlspecialchars()
 //
 // @param array $dataArray
 //
@@ -44,7 +44,7 @@ function secureArray($dataArray) {
 	return $secureArray;
 }
 
-// Secures a string with htmlspecialchars()
+// secures a string with htmlspecialchars()
 //
 // @param string $string
 //
@@ -53,7 +53,7 @@ function secureString($string) {
 	return htmlspecialchars($string);
 }
 
-// Hash a password with given salt
+// hash a password with given salt
 //
 // @param string $password
 // @param string $salt
@@ -63,7 +63,7 @@ function hashPassword($password, $salt) {
 	return hash_hmac('md5', $password, $salt);
 }
 
-// Check whether a string is empty
+// check whether a string is empty
 //
 // @param string $string
 //

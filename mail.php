@@ -1,6 +1,6 @@
 <?php
 
-// Send a mail
+// send a mail
 //
 // @param string $mailTo
 // @param string $text (optional)

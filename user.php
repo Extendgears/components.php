@@ -1,6 +1,6 @@
 <?php
 
-// Get data of a specific user
+// get data of a specific user
 //
 // @param array $dataArray e.g. array("name" => $name, "password" => $password [, "databaseCol" => $variable])
 //
@@ -29,7 +29,7 @@ function getUserData($dataArray) {
 	return $result;
 }
 
-// Set data of a specific user
+// set data of a specific user
 //
 // @param string $userID id of the user you want to change
 // @param array $dataArray e.g. array("name" => $name, "password" => $password [, "databaseCol" => $newValue]), these values will be changed to the given value
@@ -59,7 +59,7 @@ function setUserData($userID, $dataArray) {
 	return $success;
 }
 
-// Register a new user
+// register a new user
 //
 // @param string $name 
 // @param string $password
@@ -95,7 +95,7 @@ function registerUser($name, $password) {
 	}
 }
 
-// Change password of a user who is logged in
+// change password of a user who is logged in
 //
 // @param string $oldpassword
 // @param string $newpassword
@@ -113,7 +113,7 @@ function resetPassword($oldpassword, $newpassword) {
 	return false;
 }
 
-// Get a single information of a user who is logged in
+// get a single information of a user who is logged in
 //
 // @param string $col name of column in database
 //
@@ -124,7 +124,7 @@ function getSingleUserData($col) {
 	}
 }
 
-// Set a single information of a user who is logged in
+// set a single information of a user who is logged in
 //
 // @param string $col name of column in database
 // @param string $value value for column

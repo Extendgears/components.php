@@ -26,7 +26,7 @@ function curPath() {
 	return 'http://' . $host . $uri . '/' . $extra;
 }
 
-// Load all modules of php-components
+// load all modules of php-components
 function initComponents() {
 	global $pathArray;
 	foreach ($pathArray as $name => $path) {

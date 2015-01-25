@@ -24,14 +24,14 @@ function openDatabase($domain, $username, $password, $sheet) {
 	return $database;
 }
 
-// Closes a databse
+// closes a databse
 //
 // @param object $database
 function closeDatabase($database) {
 	$database->close();
 }
 
-// Query database for information 
+// query database for information 
 //
 // @param string $query
 //
