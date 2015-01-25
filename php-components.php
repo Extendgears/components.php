@@ -26,12 +26,12 @@ function curPath() {
 	return 'http://' . $host . $uri . '/' . $extra;
 }
 
+// load all modules of php-components
 function initComponents() {
 	global $pathArray;
 	foreach ($pathArray as $name => $path) {
 		require(__DIR__ . "/" . $path);
 	}
-	return true;
 }
 
 initComponents();

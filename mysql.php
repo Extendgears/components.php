@@ -1,5 +1,13 @@
 <?php
 
+// Open a database
+//
+// @param string $domain
+// @param string $username
+// @param string $password
+// @param string $sheet
+//
+// @return bool|object false if an error occured, database if everything was ok
 function openDatabase($domain, $username, $password, $sheet) {
 	$database = new mysqli($domain, $username, $password, $sheet);
 
@@ -16,10 +24,18 @@ function openDatabase($domain, $username, $password, $sheet) {
 	return $database;
 }
 
+// closes a databse
+//
+// @param object $database
 function closeDatabase($database) {
 	$database->close();
 }
 
+// query database for information 
+//
+// @param string $query
+//
+// @return bool|object false if an error occured, true if result is not an object (e.g. for 'INSERT' or 'UPDATE' request), an object for everything else
 function queryMySQLData($query) {
 	$database = openDatabase('localhost', 'root', 'password', 'database');
 

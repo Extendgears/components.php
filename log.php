@@ -1,5 +1,6 @@
 <?php
 
+// check whether user should be logged in automatically, if yes do so
 function initLogSys() {
 	useSession();
 
@@ -18,18 +19,19 @@ function initLogSys() {
 			saveKeepLog();
 		}
 	}
-	return true;
 }
 
+// save keepLog-cookie and store the value in the database
 function saveKeepLog() {
-	// Save keepLog-cookie and store the value in the database
 	$keepLogKey = uniqid();
 	setCookie('keepLog', $keepLogKey, time() + 3600, '/', 'localhost', false, true);
 	setUserData(getLogState(), array('keepLog' => $keepLogKey));
 }
 
+// get userID
+//
+// @return int|bool if user is not logged in, return false
 function getLogState() {
-	// if user is logged in, return the userID
 	if (getSessionVar('login')) {
 		return getSessionVar('userID');
 	} else {
@@ -37,6 +39,13 @@ function getLogState() {
 	}
 }
 
+// log in a user
+//
+// @param string $name
+// @param string $password
+// @param bool $keepLog (optional)
+//
+// @return bool true if login was successful
 function logUserIn($name, $password, $keepLog=false) {
 	$name = secureString($name);
 	$password = hashPassword(secureString($password), getUserData(array('name' => $name))['salt']);
@@ -53,6 +62,7 @@ function logUserIn($name, $password, $keepLog=false) {
 	}
 }
 
+// log out a user
 function logUserOut() {
 	setSessionVar('login', false);
 	setCookie('keepLog', '0', time() - 3600, '/', 'localhost', false, true);

@@ -1,15 +1,15 @@
 <?php
 
-// Use like this `sendMail(
-//   'to which mail address',
-//   'message',
-//   'subject',
-//   'from which mail address',
-//   'name to',
-//   'name from'
-// );`
-// The only necessary argument is the first one. All the others are optional.
-
+// send a mail
+//
+// @param string $mailTo
+// @param string $text (optional)
+// @param string $subject (optional)
+// @param string $mailFrom (optional)
+// @param string $nameTo (optional)
+// @param string $nameFrom (optional)
+//
+// @return bool true if sending was successful
 function sendMail($mailTo, $text = '', $subject = '', $mailFrom = '', $nameTo = '', $nameFrom = '') {
 	$mailTo   = (string) $mailTo;
 	$mailFrom = (string) $mailFrom;
