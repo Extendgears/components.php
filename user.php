@@ -1,12 +1,11 @@
 <?php
 
+// Get data of a specific user
+//
+// @param array $dataArray e.g. array("name" => $name, "password" => $password [, "databaseCol" => $variable])
+//
+// @return array first row of user table with matching information from $dataArray
 function getUserData($dataArray) {
-	// $dataArray: Array of all data you want to check for and their name in the database.
-
-	// EXAMPLE
-	// $dataArray = array("name" => $name, "password" => $password [, "databaseCol" => $variable])
-
-	// returns an array of the 1st row with matching values
 
 	$dataArray = secureArray($dataArray);;
 
@@ -30,6 +29,12 @@ function getUserData($dataArray) {
 	return $result;
 }
 
+// Set data of a specific user
+//
+// @param string $userID id of the user you want to change
+// @param array $dataArray e.g. array("name" => $name, "password" => $password [, "databaseCol" => $newValue]), these values will be changed to the given value
+//
+// @return bool true, if everything went right
 function setUserData($userID, $dataArray) {
 
 	$dataArray = secureArray($dataArray);;
@@ -54,6 +59,12 @@ function setUserData($userID, $dataArray) {
 	return $success;
 }
 
+// Register a new user
+//
+// @param string $name 
+// @param string $password
+//
+// @return int 0 if something went wrong, 1 if user is registered, 2 if name exists already, 3 if $name or $password is empty
 function registerUser($name, $password) {
 
 	if (isStringEmpty($name) || isStringEmpty($password)) {
@@ -64,7 +75,7 @@ function registerUser($name, $password) {
 	$salt = uniqid();
 	$passwordHash = hashPassword(secureString($password), $salt);
 
-	$query = "SELECT * FROM user WHERE LOWER(name)='" . strtolower($name) . "';";
+	$query = "SELECT // FROM user WHERE LOWER(name)='" . strtolower($name) . "';";
 	$nameOccupied = queryMySQLData($query);
 
 	if (!$nameOccupied) {
@@ -84,6 +95,12 @@ function registerUser($name, $password) {
 	}
 }
 
+// Change password of a user who is logged in
+//
+// @param string $oldpassword
+// @param string $newpassword
+//
+// @return bool true if new password has been set, false if not
 function resetPassword($oldpassword, $newpassword) {
 	$userdata = getUserData(array("id" => getLogState()));
 
@@ -96,12 +113,23 @@ function resetPassword($oldpassword, $newpassword) {
 	return false;
 }
 
+// Get a single information of a user who is logged in
+//
+// @param string $col name of column in database
+//
+// @return mixed value of requested item
 function getSingleUserData($col) {
 	if (!isStringEmpty($col)){
 		return getUserData(array("id" => getLogState()))[$col];
 	}
 }
 
+// Set a single information of a user who is logged in
+//
+// @param string $col name of column in database
+// @param string $value value for column
+//
+// @return bool true if value has been set
 function setSingleUserData($col, $value) {
 	if (!isStringEmpty($col) && !isStringEmpty($value)) {
 		return setUserData(getLogState(), array($col => $value));

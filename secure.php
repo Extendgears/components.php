@@ -1,5 +1,10 @@
 <?php
 
+// Validate a mailaddress
+//
+// @param string $mail
+//
+// @return bool false if address is not a real one
 function validMail($mail) {
 	if (!filter_var($mail, FILTER_VALIDATE_EMAIL)) {
 		return false;
@@ -8,6 +13,11 @@ function validMail($mail) {
 	}
 }
 
+// Validate a path
+//
+// @param string $path
+//
+// @return bool false if path is not a real one
 function validPath($path) {
 	if (!filter_var($path, FILTER_VALIDATE_URL)) {
 		return false;
@@ -16,6 +26,11 @@ function validPath($path) {
 	}
 }
 
+// Secures an array with htmlspecialchars()
+//
+// @param array $dataArray
+//
+// @return array secured array
 function secureArray($dataArray) {
 	$secureArray = array();
 
@@ -29,15 +44,30 @@ function secureArray($dataArray) {
 	return $secureArray;
 }
 
+// Secures a string with htmlspecialchars()
+//
+// @param string $string
+//
+// @return string secured string
 function secureString($string) {
-	$new = htmlspecialchars($string);
-	return $new;
+	return htmlspecialchars($string);
 }
 
+// Hash a password with given salt
+//
+// @param string $password
+// @param string $salt
+//
+// @return string hash value
 function hashPassword($password, $salt) {
 	return hash_hmac('md5', $password, $salt);
 }
 
+// Check whether a string is empty
+//
+// @param string $string
+//
+// @return bool true if string is empty
 function isStringEmpty($string) {
 	if (str_replace(' ', '', $string) == '') {
 		return true;
