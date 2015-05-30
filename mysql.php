@@ -8,16 +8,16 @@
 // @param string $sheet
 //
 // @return bool|object false if an error occured, database if everything was ok
-function openDatabase($domain, $username, $password, $sheet) {
-	$database = new mysqli($domain, $username, $password, $sheet);
+function openDatabase($host, $username, $password, $sheet, $charset) {
+	$database = new mysqli($host, $username, $password, $sheet);
 
 	if ($database->connect_error) {
 		echo 'Error while connecting: '.mysqli_connect_error();
 		return false;
 	}
 
-	if (!$database->set_charset('utf8')) {
-		echo 'Error while loading UTF-8 for MySQLi: ' . $database->error;
+	if (!$database->set_charset($charset)) {
+		echo 'Error while loading ' . $charset . ' for MySQL: ' . $database->error;
 		return false;
 	}
 
@@ -37,7 +37,7 @@ function closeDatabase($database) {
 //
 // @return bool|object false if an error occured, true if result is not an object (e.g. for 'INSERT' or 'UPDATE' request), an object for everything else
 function queryMySQLData($query) {
-	$database = openDatabase('localhost', 'root', 'password', 'database');
+	$database = openDatabase(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME, DB_CHARSET);
 
 	if (strpos($query, 'UPDATE') || strpos($query, 'INSERT')) {
 		$database->query($query);
