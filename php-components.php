@@ -1,12 +1,13 @@
 <?php
 
 $pathArray = array(
-	'mail'    => 'mail.php',
-	'secure'  => 'secure.php',
-	'session' => 'session.php',
-	'user'    => 'user.php',
-	'log'     => 'log.php',
-	'mysql'   => 'mysql.php'
+	'mail'      => 'mail.php',
+	'secure'    => 'secure.php',
+	'session'   => 'session.php',
+	'user'      => 'user.php',
+	'log'       => 'log.php',
+	'mysql'     => 'mysql.php',
+	'sql_users' => 'sql_users.php'
 );
 
 function getPath($module) {

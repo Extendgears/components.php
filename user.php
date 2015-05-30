@@ -6,10 +6,11 @@
 //
 // @return array first row of user table with matching information from $dataArray
 function getUserData($dataArray) {
+	initTable(DB_PREFIX.DB_USERTABLE, SQL_USERS);
 
 	$dataArray = secureArray($dataArray);;
 
-	$query = "SELECT * FROM user WHERE ";
+	$query = "SELECT * FROM ".DB_PREFIX.DB_USERTABLE." WHERE ";
 
 	$count = count($dataArray);
 	$i = 0;
@@ -36,10 +37,11 @@ function getUserData($dataArray) {
 //
 // @return bool true, if everything went right
 function setUserData($userID, $dataArray) {
+	initTable(DB_PREFIX.DB_USERTABLE, SQL_USERS);
 
 	$dataArray = secureArray($dataArray);;
 
-	$query = "UPDATE user SET ";
+	$query = "UPDATE ".DB_PREFIX.DB_USERTABLE." SET ";
 
 	$count = count($dataArray);
 	$i = 0;
@@ -61,11 +63,12 @@ function setUserData($userID, $dataArray) {
 
 // register a new user
 //
-// @param string $name 
+// @param string $name
 // @param string $password
 //
 // @return int 0 if something went wrong, 1 if user is registered, 2 if name exists already, 3 if $name or $password is empty
 function registerUser($name, $password) {
+	initTable(DB_PREFIX.DB_USERTABLE, SQL_USERS);
 
 	if (isStringEmpty($name) || isStringEmpty($password)) {
 		return 3;
@@ -75,15 +78,15 @@ function registerUser($name, $password) {
 	$salt = uniqid();
 	$passwordHash = hashPassword(secureString($password), $salt);
 
-	$query = "SELECT // FROM user WHERE LOWER(name)='" . strtolower($name) . "';";
+	$query = "SELECT id FROM ".DB_PREFIX.DB_USERTABLE." WHERE LOWER(name)='" . strtolower($name) . "';";
 	$nameOccupied = queryMySQLData($query);
-
+	//echo var_dump($nameOccupied);
 	if (!$nameOccupied) {
 
-		$query = "INSERT INTO user (id, name, password, salt) VALUES (NULL, '" . $name . "', '" . $passwordHash . "', '" . $salt . "');";
+		$query = "INSERT INTO ".DB_PREFIX.DB_USERTABLE." (name, password, salt) VALUES ('" . $name . "', '" . $passwordHash . "', '" . $salt . "');";
+		$result = queryMySQLData($query);
 
-		if (queryMySQLData($query)) {
-
+		if ($result) {
 			logUserIn($name, $password);
 			return 1;
 		}
@@ -102,6 +105,8 @@ function registerUser($name, $password) {
 //
 // @return bool true if new password has been set, false if not
 function resetPassword($oldpassword, $newpassword) {
+	initTable(DB_PREFIX.DB_USERTABLE, SQL_USERS);
+
 	$userdata = getUserData(array("id" => getLogState()));
 
 	if (hashPassword(secureString($oldpassword), $userdata["salt"]) == $userdata["password"]) {
@@ -135,5 +140,6 @@ function setSingleUserData($col, $value) {
 		return setUserData(getLogState(), array($col => $value));
 	}
 }
+
 
 ?>

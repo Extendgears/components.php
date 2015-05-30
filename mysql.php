@@ -31,7 +31,7 @@ function closeDatabase($database) {
 	$database->close();
 }
 
-// query database for information 
+// query database for information
 //
 // @param string $query
 //
@@ -44,7 +44,6 @@ function queryMySQLData($query) {
 		closeDatabase($database);
 		return true;
 	}
-
 	$ergebnis = $database->query($query);
 
 	closeDatabase($database);
@@ -56,6 +55,19 @@ function queryMySQLData($query) {
 	}
 
 	return false;
+}
+
+// create a table if there isn't one with given name
+//
+// @param string $name
+// @param string $query
+//
+function initTable($name, $query) {
+	$resultCheck = queryMySQLData('SELECT * FROM '.$name);
+
+	if($resultCheck == false) {
+		queryMySQLData($query);
+	}
 }
 
 ?>
