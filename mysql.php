@@ -43,11 +43,10 @@ function queryMySQLData($query) {
 		$database->query($query);
 		closeDatabase($database);
 		return true;
-	}
-
+	} 
 	$ergebnis = $database->query($query);
-
-	closeDatabase($database);
+    
+    closeDatabase($database);
 
 	if (is_object($ergebnis)) {
 		return $ergebnis->fetch_array();
@@ -56,6 +55,19 @@ function queryMySQLData($query) {
 	}
 
 	return false;
+}
+
+// create a table if there isn't one with given name
+//
+// @param string $name
+// @param string $query
+//
+function initTable($name, $query) {
+    $resultCheck = queryMySQLData('SELECT * FROM '.$name);
+    
+    if($resultCheck == false) {
+        queryMySQLData($query);
+    }
 }
 
 ?>
