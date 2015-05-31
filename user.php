@@ -2,24 +2,24 @@
 
 // get data of a specific user
 //
-// @param array $dataArray e.g. array("name" => $name, "password" => $password [, "databaseCol" => $variable])
+// @param array $dataArray e.g. array('name' => $name, 'password' => $password [, 'databaseCol' => $variable])
 //
 // @return array first row of user table with matching information from $dataArray
 function getUserData($dataArray) {
-	initTable(DB_PREFIX.DB_USERTABLE, SQL_USERS);
+	initTable(DB_PREFIX.DB_USERS, SQL_USERS);
 
 	$dataArray = secureArray($dataArray);;
 
-	$query = "SELECT * FROM ".DB_PREFIX.DB_USERTABLE." WHERE ";
+	$query = 'SELECT * FROM '.DB_PREFIX.DB_USERS.' WHERE ';
 
 	$count = count($dataArray);
 	$i = 0;
 	foreach ($dataArray as $col => $var) {
 
 		if ($i >= $count-1) {
-			$query = $query . $col . "='" . $var . "';";
+			$query = $query . $col . '=\'' . $var . '\';';
 		} else {
-			$query = $query . $col . "='" . $var . "' AND ";
+			$query = $query . $col . '=\'' . $var . '\' AND ';
 		}
 
 		$i++;
@@ -27,30 +27,30 @@ function getUserData($dataArray) {
 
 	$result = queryMySQLData($query);
 
-	return $result;
+	return $result->fetch_array();
 }
 
 // set data of a specific user
 //
 // @param string $userID id of the user you want to change
-// @param array $dataArray e.g. array("name" => $name, "password" => $password [, "databaseCol" => $newValue]), these values will be changed to the given value
+// @param array $dataArray e.g. array('name' => $name, 'password' => $password [, 'databaseCol' => $newValue]), these values will be changed to the given value
 //
 // @return bool true, if everything went right
 function setUserData($userID, $dataArray) {
-	initTable(DB_PREFIX.DB_USERTABLE, SQL_USERS);
+	initTable(DB_PREFIX.DB_USERS, SQL_USERS);
 
 	$dataArray = secureArray($dataArray);;
 
-	$query = "UPDATE ".DB_PREFIX.DB_USERTABLE." SET ";
+	$query = 'UPDATE '.DB_PREFIX.DB_USERS.' SET ';
 
 	$count = count($dataArray);
 	$i = 0;
 	foreach ($dataArray as $col => $var) {
 
 		if ($i >= $count-1) {
-			$query = $query . $col . "='" . $var . "' WHERE id='" . $userID . "';";
+			$query = $query . $col . '=\'' . $var . '\' WHERE id=\'' . $userID . '\';';
 		} else {
-			$query = $query . $col . "='" . $var . "', ";
+			$query = $query . $col . '=\'' . $var . '\', ';
 		}
 
 		$i++;
@@ -68,7 +68,7 @@ function setUserData($userID, $dataArray) {
 //
 // @return int 0 if something went wrong, 1 if user is registered, 2 if name exists already, 3 if $name or $password is empty
 function registerUser($name, $password) {
-	initTable(DB_PREFIX.DB_USERTABLE, SQL_USERS);
+	initTable(DB_PREFIX.DB_USERS, SQL_USERS);
 
 	if (isStringEmpty($name) || isStringEmpty($password)) {
 		return 3;
@@ -78,13 +78,14 @@ function registerUser($name, $password) {
 	$salt = uniqid();
 	$passwordHash = hashPassword(secureString($password), $salt);
 
-	$query = "SELECT id FROM ".DB_PREFIX.DB_USERTABLE." WHERE LOWER(name)='" . strtolower($name) . "';";
+	$query = 'SELECT id FROM '.DB_PREFIX.DB_USERS.' WHERE LOWER(name)=\'' . strtolower($name) . '\';';
 	$nameOccupied = queryMySQLData($query);
 	//echo var_dump($nameOccupied);
 	if (!$nameOccupied) {
 
-		$query = "INSERT INTO ".DB_PREFIX.DB_USERTABLE." (name, password, salt) VALUES ('" . $name . "', '" . $passwordHash . "', '" . $salt . "');";
+		$query = 'INSERT INTO '.DB_PREFIX.DB_USERS.' (name, password, salt) VALUES (\'' . $name . '\', \'' . $passwordHash . '\', \'' . $salt . '\');';
 		$result = queryMySQLData($query);
+
 
 		if ($result) {
 			logUserIn($name, $password);
@@ -105,13 +106,14 @@ function registerUser($name, $password) {
 //
 // @return bool true if new password has been set, false if not
 function resetPassword($oldpassword, $newpassword) {
-	initTable(DB_PREFIX.DB_USERTABLE, SQL_USERS);
+	initTable(DB_PREFIX.DB_USERS, SQL_USERS);
 
-	$userdata = getUserData(array("id" => getLogState()));
+	$userdata = getUserData(array('id' => getLogState()));
 
-	if (hashPassword(secureString($oldpassword), $userdata["salt"]) == $userdata["password"]) {
-		$newpassword = hashPassword(secureString($newpassword), $userdata["salt"]);
-		$result = setUserData(getLogState(), array("password" => $newpassword));
+
+	if (hashPassword(secureString($oldpassword), $userdata['salt']) == $userdata['password']) {
+		$newpassword = hashPassword(secureString($newpassword), $userdata['salt']);
+		$result = setUserData(getLogState(), array('password' => $newpassword));
 		return $result;
 	}
 
@@ -125,7 +127,7 @@ function resetPassword($oldpassword, $newpassword) {
 // @return mixed value of requested item
 function getSingleUserData($col) {
 	if (!isStringEmpty($col)){
-		return getUserData(array("id" => getLogState()))[$col];
+		return getUserData(array('id' => getLogState()))[$col];
 	}
 }
 

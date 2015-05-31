@@ -1,7 +1,7 @@
 <?php 
 
 define( 'SQL_USERS', '
-CREATE TABLE `'.DB_PREFIX.DB_USERTABLE.'` (
+CREATE TABLE `'.DB_PREFIX.DB_USERS.'` (
   `id` int(5) unsigned NOT NULL AUTO_INCREMENT PRIMARY KEY,
   `name` varchar(30) COLLATE utf32_german2_ci NOT NULL,
   `password` varchar(50) COLLATE utf32_german2_ci NOT NULL,

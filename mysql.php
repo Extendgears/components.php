@@ -49,7 +49,7 @@ function queryMySQLData($query) {
 	closeDatabase($database);
 
 	if (is_object($ergebnis)) {
-		return $ergebnis->fetch_array();
+		return $ergebnis;
 	} elseif ($ergebnis == true) {
 		return true;
 	}

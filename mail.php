@@ -26,8 +26,8 @@ function sendMail($mailTo, $text = '', $subject = '', $mailFrom = '', $nameTo = 
 	$to   = $nameTo   . ' <' . $mailTo   . '>';
 	$from = $nameFrom . ' <' . $mailFrom . '>';
 
-	$headers  = 'MIME-Version: 1.0' . "\r\n";
-	$headers .= 'From: ' . $from . "\r\n";
+	$headers  = 'MIME-Version: 1.0' . '\r\n';
+	$headers .= 'From: ' . $from . '\r\n';
 
 	return mail($to, $subject, $text, $headers);
 }

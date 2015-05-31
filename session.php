@@ -7,7 +7,7 @@ function useSession() {
 
 // Quit the session
 function quitSession() {
-	setcookie(session_name(), "", time() - 42000, "/");
+	setcookie(session_name(), '', time() - 42000, '/');
 }
 
 // get a session variable
