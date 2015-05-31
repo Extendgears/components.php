@@ -79,8 +79,8 @@ function registerUser($name, $password) {
 	$passwordHash = hashPassword(secureString($password), $salt);
 
 	$query = 'SELECT id FROM '.DB_PREFIX.DB_USERS.' WHERE LOWER(name)=\'' . strtolower($name) . '\';';
-	$nameOccupied = queryMySQLData($query);
-	//echo var_dump($nameOccupied);
+	$nameOccupied = queryMySQLData($query)->fetch_array();
+
 	if (!$nameOccupied) {
 
 		$query = 'INSERT INTO '.DB_PREFIX.DB_USERS.' (name, password, salt) VALUES (\'' . $name . '\', \'' . $passwordHash . '\', \'' . $salt . '\');';
