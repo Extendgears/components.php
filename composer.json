@@ -1,0 +1,7 @@
+{
+    "name": "extendgears/php-components",
+    "description": "Components for simple PHP apps",
+    "require": {
+        "php": ">=5.4.0"
+    }
+}
