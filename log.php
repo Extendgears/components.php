@@ -11,8 +11,8 @@ function initLogSys() {
 	}
 
 	// keepLog-cookie equal to keepLog-value in database?
-	if (isset($_COOKIE['keepLog']) && !getLogState()) {
-		$userData = getUserData(array('keepLog' => $_COOKIE['keepLog']));
+	if (isset($_COOKIE['keep_log']) && !getLogState()) {
+		$userData = getUserData(array('keep_log' => $_COOKIE['keep_log']));
 		if ($userData) {
 			setSessionVar('login', true);
 			setSessionVar('userID', $userData['id']);
@@ -24,8 +24,8 @@ function initLogSys() {
 // save keepLog-cookie and store the value in the database
 function saveKeepLog() {
 	$keepLogKey = uniqid();
-	setCookie('keepLog', $keepLogKey, time() + 3600, '/', 'localhost', false, true);
-	setUserData(getLogState(), array('keepLog' => $keepLogKey));
+	setCookie('keep_log', $keepLogKey, time() + 3600, '/', $_SERVER['HTTP_HOST'], false, true);
+	setUserData(getLogState(), array('keep_log' => $keepLogKey));
 }
 
 // get userID
@@ -65,8 +65,8 @@ function logUserIn($name, $password, $keepLog=false) {
 // log out a user
 function logUserOut() {
 	setSessionVar('login', false);
-	setCookie('keepLog', '0', time() - 3600, '/', 'localhost', false, true);
-	unset($_COOKIE['keepLog']);
+	setCookie('keep_log', '0', time() - 3600, '/', $_SERVER['HTTP_HOST'], false, true);
+	unset($_COOKIE['keep_log']);
 	quitSession();
 }
 
