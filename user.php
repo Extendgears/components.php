@@ -15,6 +15,9 @@ function getUserData($dataArray) {
 	$count = count($dataArray);
 	$i = 0;
 	foreach ($dataArray as $col => $var) {
+		
+		$col = secureString($col);
+		$var = secureString($var);
 
 		if ($i >= $count-1) {
 			$query = $query . $col . '=\'' . $var . '\';';
@@ -46,6 +49,9 @@ function setUserData($userID, $dataArray) {
 	$count = count($dataArray);
 	$i = 0;
 	foreach ($dataArray as $col => $var) {
+		
+		$col = secureString($col);
+		$var = secureString($var);
 
 		if ($i >= $count-1) {
 			$query = $query . $col . '=\'' . $var . '\' WHERE id=\'' . $userID . '\';';

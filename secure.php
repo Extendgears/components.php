@@ -50,7 +50,7 @@ function secureArray($dataArray) {
 //
 // @return string secured string
 function secureString($string) {
-	return htmlspecialchars($string);
+	return htmlspecialchars($string, ENT_QUOTES);
 }
 
 // hash a password with given salt
