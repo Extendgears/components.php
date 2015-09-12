@@ -19,7 +19,7 @@ function getSessionVar($varName) {
 	if (isset($_SESSION[$varName])) {
 		return $_SESSION[$varName];
 	} else {
-		return false;	
+		return false;
 	}
 }
 
@@ -32,7 +32,7 @@ function getSessionVar($varName) {
 function setSessionVar($varName, $varVal) {
 	if (is_string($varVal)) {
 		$varVal = htmlspecialchars($varVal);
-	} 
+	}
 	$_SESSION[$varName] = $varVal;
 	return $varVal;
 }
