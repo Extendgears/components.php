@@ -15,7 +15,7 @@ function getUserData($dataArray) {
 	$count = count($dataArray);
 	$i = 0;
 	foreach ($dataArray as $col => $var) {
-		
+
 		$col = secureString($col);
 		$var = secureString($var);
 
@@ -49,7 +49,7 @@ function setUserData($userID, $dataArray) {
 	$count = count($dataArray);
 	$i = 0;
 	foreach ($dataArray as $col => $var) {
-		
+
 		$col = secureString($col);
 		$var = secureString($var);
 
