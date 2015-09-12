@@ -149,5 +149,18 @@ function setSingleUserData($col, $value) {
 	}
 }
 
+// add custom columns to users table
+//
+// @param array $fieldarray e.g. ['initials' => 'VARCHAR(60)']
+//
+// @return bool true if everything worked
+function addCustomFields($fieldarray) {
+	foreach ($fieldarray as $name => $type) {
+		$name = secureString(strtolower($name));
+		$type = secureString($type);
+		$query = 'ALTER TABLE ' . DB_PREFIX . DB_USERS . ' ADD ' . $name . ' ' . $type;
+		queryMySQLData($query);
+	}
+}
 
 ?>
