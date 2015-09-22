@@ -6,7 +6,6 @@
 //
 // @return array first row of user table with matching information from $dataArray
 function getUserData($dataArray) {
-	initTable(DB_PREFIX.DB_USERS, SQL_USERS);
 
 	$dataArray = secureArray($dataArray);;
 
@@ -15,7 +14,7 @@ function getUserData($dataArray) {
 	$count = count($dataArray);
 	$i = 0;
 	foreach ($dataArray as $col => $var) {
-		
+
 		$col = secureString($col);
 		$var = secureString($var);
 
@@ -40,7 +39,6 @@ function getUserData($dataArray) {
 //
 // @return bool true, if everything went right
 function setUserData($userID, $dataArray) {
-	initTable(DB_PREFIX.DB_USERS, SQL_USERS);
 
 	$dataArray = secureArray($dataArray);;
 
@@ -49,7 +47,7 @@ function setUserData($userID, $dataArray) {
 	$count = count($dataArray);
 	$i = 0;
 	foreach ($dataArray as $col => $var) {
-		
+
 		$col = secureString($col);
 		$var = secureString($var);
 
@@ -74,7 +72,6 @@ function setUserData($userID, $dataArray) {
 //
 // @return int 0 if something went wrong, 1 if user is registered, 2 if name exists already, 3 if $name or $password is empty
 function registerUser($name, $password) {
-	initTable(DB_PREFIX.DB_USERS, SQL_USERS);
 
 	if (isStringEmpty($name) || isStringEmpty($password)) {
 		return 3;
@@ -112,7 +109,6 @@ function registerUser($name, $password) {
 //
 // @return bool true if new password has been set, false if not
 function resetPassword($oldpassword, $newpassword) {
-	initTable(DB_PREFIX.DB_USERS, SQL_USERS);
 
 	$userdata = getUserData(array('id' => getLogState()));
 
