@@ -63,7 +63,7 @@ function queryMySQLData($query) {
 // @param string $query
 //
 function initTable($name, $query) {
-	$resultCheck = queryMySQLData('SELECT * FROM '.$name);
+	$resultCheck = queryMySQLData('SELECT 1 FROM ' . $name . ' LIMIT 1');
 
 	if($resultCheck == false) {
 		queryMySQLData($query);
